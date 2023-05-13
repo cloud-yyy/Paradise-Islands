@@ -14,12 +14,12 @@ public class Jumper : MonoBehaviour
     private void Start()
     {
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnTouched += TryJump;
+        _inputHandler.OnSwipedVertical += TryJump;
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnTouched -= TryJump;
+        _inputHandler.OnSwipedVertical -= TryJump;
     }
 
     private void TryJump()

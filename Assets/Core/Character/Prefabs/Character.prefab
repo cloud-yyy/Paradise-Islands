@@ -145,7 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1167672be2aa50942a16f3b06c746caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDeltaSwipe: 80
+  _horizontalSwipeCoefficient: 0.08
+  _verticalSwipeCoefficient: 0.12
 --- !u!114 &2045731237425124348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf90207770d05c4497e5734dba4cd95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpHeight: 3
+  _jumpHeight: 3.5
   _jumpDuration: 0.8
   _curve:
     serializedVersion: 2

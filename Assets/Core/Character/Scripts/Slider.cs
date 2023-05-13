@@ -19,12 +19,12 @@ public class Slider : MonoBehaviour
         _target = _swither.CurrentPosition;
 
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnSwiped += Slide;
+        _inputHandler.OnSwipedHorizontal += Slide;
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnSwiped -= Slide;
+        _inputHandler.OnSwipedHorizontal -= Slide;
     }
 
     private void FixedUpdate()
