@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EntityMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _speed = 37f;
     [SerializeField] private float _smoothingTime = 0.5f;
-    [SerializeField] private Vector3 _direction = Vector3.forward;
+    [SerializeField] private Vector3 _direction = Vector3.right;
     [SerializeField] private AnimationCurve _curve;
 
     private Vector3 _deltaPosition = Vector3.zero;

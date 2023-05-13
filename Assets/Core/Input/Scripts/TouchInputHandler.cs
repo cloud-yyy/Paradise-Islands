@@ -10,7 +10,7 @@ public class TouchInputHandler : MonoBehaviour
     [SerializeField] private float _verticalSwipeCoefficient = 0.12f;
     private Vector3 _lastPosition;
 
-    public event Action OnSwipedVertical;
+    public event Action<Vector3> OnSwipedVertical;
     public event Action<Vector3> OnSwipedHorizontal;
 
     public void Update()
@@ -22,8 +22,8 @@ public class TouchInputHandler : MonoBehaviour
         {
             var delta = Input.mousePosition - _lastPosition;
 
-            if (delta.y >= Screen.height * _verticalSwipeCoefficient)
-                OnSwipedVertical?.Invoke();
+            if (Mathf.Abs(delta.y) >= Screen.height * _verticalSwipeCoefficient)
+                OnSwipedVertical?.Invoke(delta);
             else if (Mathf.Abs(delta.x) >= Screen.width * _horizontalSwipeCoefficient)
                 OnSwipedHorizontal?.Invoke(delta);
         }

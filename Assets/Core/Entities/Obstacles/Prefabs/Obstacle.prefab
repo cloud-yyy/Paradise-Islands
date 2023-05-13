@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 35
+  _speed: 37
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
