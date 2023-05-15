@@ -6,12 +6,11 @@ using UnityEngine.EventSystems;
 
 public class TouchInputHandler : MonoBehaviour
 {
-    [SerializeField] private float _horizontalSwipeCoefficient = 0.08f;
-    [SerializeField] private float _verticalSwipeCoefficient = 0.12f;
+    [SerializeField] private float _minSwipeMagnitude = 0.08f;
     private Vector3 _lastPosition;
 
-    public event Action<Vector3> OnSwipedVertical;
-    public event Action<Vector3> OnSwipedHorizontal;
+    public event Action<float> OnSwipedVertical;
+    public event Action<float> OnSwipedHorizontal;
 
     public void Update()
     {
@@ -22,10 +21,14 @@ public class TouchInputHandler : MonoBehaviour
         {
             var delta = Input.mousePosition - _lastPosition;
 
-            if (Mathf.Abs(delta.y) >= Screen.height * _verticalSwipeCoefficient)
-                OnSwipedVertical?.Invoke(delta);
-            else if (Mathf.Abs(delta.x) >= Screen.width * _horizontalSwipeCoefficient)
-                OnSwipedHorizontal?.Invoke(delta);
+            if (delta.magnitude > Screen.width * _minSwipeMagnitude)
+            {
+                if (Math.Abs(delta.y) >= Math.Abs(delta.x))
+                    OnSwipedVertical?.Invoke(delta.y);
+                else
+                    OnSwipedHorizontal?.Invoke(delta.x);
+
+            }
         }
     }
 }

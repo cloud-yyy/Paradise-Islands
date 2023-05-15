@@ -12,6 +12,7 @@ public class Slider : MonoBehaviour
     private PositionSwither _swither;
     private TouchInputHandler _inputHandler;
     private Transform _target;
+    private CharacterAnimator _animator;
 
     private void Start()
     {
@@ -20,6 +21,8 @@ public class Slider : MonoBehaviour
 
         _inputHandler = GetComponent<TouchInputHandler>();
         _inputHandler.OnSwipedHorizontal += Slide;
+
+        _animator = GetComponent<CharacterAnimator>();
     }
 
     private void OnDisable()
@@ -34,9 +37,9 @@ public class Slider : MonoBehaviour
                 .Lerp(transform.position, _target.position, _curve.Evaluate(Time.deltaTime * _slideSpeed));
     }
 
-    private void Slide(Vector3 direction)
+    private void Slide(float direction)
     {
-        if (direction.x > 0)
+        if (direction > 0)
             _target = _swither.TryMoveRight();
         else
             _target = _swither.TryMoveLeft();
