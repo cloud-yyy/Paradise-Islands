@@ -19,7 +19,43 @@ public class DebugChunkedPathSpawner : MonoBehaviour
         _generator = GetComponent<ChunkedPathGenerator>();
         var path = _generator.GeneratePath(_length);
 
+        DrawInConsole(path);
         Spawn(path);
+    }
+
+    private void DrawInConsole(List<Chunk> path)
+    {
+        foreach (var chunk in path)
+        {
+            string line = "|";
+
+            for (int i = 0; i < chunk.Items.Length; i++)
+            {
+                if (i == chunk.PathItemIndex)
+                {
+                    line += " P |";
+                    continue;
+                }
+
+                switch (chunk.Items[i])
+                {
+                    case ChunkType.Free:
+                        line += " _ |";
+                        break;
+                    case ChunkType.LowObstacle:
+                        line += " L |";
+                        break;
+                    case ChunkType.HighObstacle:
+                        line += " H |";
+                        break;
+                    case ChunkType.BarCounter:
+                        line += " B |";
+                        break;
+                }
+            }
+
+            Debug.Log(line);
+        }
     }
 
     private void Spawn(List<Chunk> chunks)

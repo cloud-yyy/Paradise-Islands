@@ -32,18 +32,18 @@ public class EntityMovement : MonoBehaviour
 
     private IEnumerator StopSmoothed()
     {
-        for (float t = _smoothingTime; t >= 0f; t -= Time.deltaTime)
+        for (float t = _smoothingTime; t >= 0f; t -= Time.fixedDeltaTime)
         {
-            _deltaPosition  = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.deltaTime;
+            _deltaPosition  = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
             yield return null;
         }
     }
 
     private IEnumerator StartSmoothed()
     {
-        for (float t = 0; t < _smoothingTime; t += Time.deltaTime)
+        for (float t = 0; t < _smoothingTime; t += Time.fixedDeltaTime)
         {
-            _deltaPosition = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.deltaTime;
+            _deltaPosition = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
             yield return null;
         }
     }

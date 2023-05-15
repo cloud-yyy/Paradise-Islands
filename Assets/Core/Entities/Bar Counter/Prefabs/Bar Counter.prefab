@@ -46,8 +46,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 2, z: 5}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 4, y: 3, z: 7}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &7117065874410830782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 37
+  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
@@ -126,7 +126,7 @@ Transform:
   m_GameObject: {fileID: 2331354757158202979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2331354756597525911}

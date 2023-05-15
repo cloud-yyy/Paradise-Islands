@@ -4,40 +4,20 @@ using UnityEngine;
 
 public class ChunkedPathGenerator : MonoBehaviour
 {
-    [SerializeField] private float _pathTurningProbability = 0.4f;
-    [SerializeField] private float _lowObstacleCreatingProbability = 0.25f;
-
     [SerializeField] private int _length;
 
-    private void Start()
-    {
-        // var path = GeneratePath(_length);
-        // var chunks = new List<string>();
+    [Header("Global Probabilities")]
+    [SerializeField] private float _pathTurningProbability = 0.85f;
 
-        // foreach (var chunk in path)
-        // {
-        //     string line = string.Empty;
-        //     foreach (var item in chunk.Items)
-        //     {
-        //         switch (item)
-        //         {
-        //             case ChunkType.Free:
-        //                 line += "  ";
-        //                 break;
-        //             case ChunkType.LowObstacle:
-        //                 line += "L ";
-        //                 break;
-        //             case ChunkType.HighObstacle:
-        //                 line += "H ";
-        //                 break;
-        //             case ChunkType.BarCounter:
-        //                 line += "B ";
-        //                 break;
-        //         }
-        //     }
-        //     Debug.Log(line);
-        // }
-    }
+    [Header("Path Creation Probabilities")]
+    [SerializeField] private float _onPathLowObstacleCreatingProbability = 0.2f;
+
+    [Header("Non-path Creation Probabilities")]
+    [SerializeField] private float _lowObstacleCreatingProbability = 0.3f;
+    [SerializeField] private float _highObstacleCreatingProbability = 0.5f;
+
+
+    //[Header("Enviroment Creation Probabilities")]
 
     public List<Chunk> GeneratePath(int length)
     {
@@ -49,7 +29,9 @@ public class ChunkedPathGenerator : MonoBehaviour
         for (int i = 0; i < length; i++)
             path.Add(CreateNextChunk(path[i]));
 
-        path.Add(new Chunk());
+        path.Add(new Chunk(1, ChunkType.HighObstacle, ChunkType.Free, ChunkType.HighObstacle));
+        path.Add(new Chunk(1, ChunkType.HighObstacle, ChunkType.Free, ChunkType.HighObstacle));
+
         path.Add(new Chunk(1, ChunkType.Free, ChunkType.BarCounter, ChunkType.Free));
 
         return path;
@@ -57,36 +39,53 @@ public class ChunkedPathGenerator : MonoBehaviour
 
     private Chunk CreateNextChunk(Chunk chunk)
     {
-        var items = new ChunkType[3];
+        var items = new ChunkType[chunk.Items.Length];
         var pathIndex = chunk.PathItemIndex;
 
-        var сhangePathIndex = Random.Range(0f, 1f) <= _pathTurningProbability;
-        var newPathIndex = сhangePathIndex ? SwithPathIndex(pathIndex, items.Length - 1) : pathIndex;
+        var newPathIndex = CheckProbability(_pathTurningProbability) ? SwithPathIndex(pathIndex, items.Length - 1) : pathIndex;
 
         for (int i = 0; i < items.Length; i++)
         {
             if (i == pathIndex)
             {
-                items[i] = Random.Range(0f, 1f) <= _lowObstacleCreatingProbability ? ChunkType.LowObstacle : ChunkType.Free;
+                items[i] = CreateRandomPathItem(chunk);
                 continue;
             }
-
             if (i == newPathIndex)
             {
                 items[i] = ChunkType.Free;
                 continue;
             }
-
-            items[i] = (ChunkType)Random.Range((int)ChunkType.Free, (int)ChunkType.HighObstacle + 1);
+            items[i] = CreateRandomNonPathItem();
         }
-
-        return new Chunk(pathIndex, items);
+        return new Chunk(newPathIndex, items);
     }
 
     private int SwithPathIndex(int currentIndex, int maxIndex)
     {
         if (currentIndex == 0) return currentIndex + 1;
         else if (currentIndex == maxIndex) return currentIndex - 1;
-        else return Random.Range(-1f, 1f) >= 0 ? currentIndex + 1 : currentIndex - 1;
+        else return CheckProbability(0.5f) ? currentIndex + 1 : currentIndex - 1;
     }
+
+    private ChunkType CreateRandomPathItem(Chunk previos)
+    {
+        if (previos.Items[previos.PathItemIndex] == ChunkType.LowObstacle)
+            return ChunkType.Free;
+
+        return CheckProbability(_onPathLowObstacleCreatingProbability) ? ChunkType.LowObstacle : ChunkType.Free;
+    }
+
+    private ChunkType CreateRandomNonPathItem()
+    {
+        var probability = Random.Range(0f, 1f);
+
+        if (probability <= _lowObstacleCreatingProbability)
+            return ChunkType.LowObstacle;
+        else if (probability <= _lowObstacleCreatingProbability + _highObstacleCreatingProbability)
+            return ChunkType.HighObstacle;
+        return ChunkType.Free;
+    }
+
+    private bool CheckProbability(float probability) => Random.Range(0f, 1f) <= probability;
 }

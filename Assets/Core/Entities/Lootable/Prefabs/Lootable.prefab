@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 37
+  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
@@ -86,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67874af55dcad941a9212064658eb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _counter: {fileID: 0}
 --- !u!135 &9087670638466603463
 SphereCollider:
   m_ObjectHideFlags: 0
