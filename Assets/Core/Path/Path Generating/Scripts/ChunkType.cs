@@ -1,4 +1,4 @@
-public enum ChunkType
+public enum ChunkItemType
 {
     Free,
     LowObstacle,

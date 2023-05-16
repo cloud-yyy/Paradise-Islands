@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Chunk
 {
-    public readonly ChunkType[] Items;
+    public readonly ChunkItemType[] Items;
     public readonly int PathItemIndex;
 
-    public Chunk(int pathItemIndex, params ChunkType[] items)
+    public Chunk(int pathItemIndex, params ChunkItemType[] items)
     {
         if (items.Length != 3) throw new ArgumentException(nameof(items));
 
@@ -18,7 +18,7 @@ public class Chunk
 
     public Chunk()
     {
-        Items = new[] { ChunkType.Free, ChunkType.Free, ChunkType.Free };
+        Items = new[] { ChunkItemType.Free, ChunkItemType.Free, ChunkItemType.Free };
         PathItemIndex = 1;
     }
 }

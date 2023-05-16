@@ -107,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5213268707682403268}
   - component: {fileID: -8426313595027284251}
+  - component: {fileID: -3812259532110585815}
   m_Layer: 0
   m_Name: Low Obstacle
   m_TagString: Untagged
@@ -142,7 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
@@ -169,3 +169,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3812259532110585815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957316897201883922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1ec5d5fb9d9ed4d852c160a312b77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

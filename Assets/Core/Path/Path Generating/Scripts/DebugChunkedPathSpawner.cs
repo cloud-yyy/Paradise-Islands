@@ -17,7 +17,7 @@ public class DebugChunkedPathSpawner : MonoBehaviour
     private void Start()
     {
         _generator = GetComponent<ChunkedPathGenerator>();
-        var path = _generator.GeneratePath(_length);
+        var path = _generator.CreatePath(_length);
 
         DrawInConsole(path);
         Spawn(path);
@@ -39,16 +39,16 @@ public class DebugChunkedPathSpawner : MonoBehaviour
 
                 switch (chunk.Items[i])
                 {
-                    case ChunkType.Free:
+                    case ChunkItemType.Free:
                         line += " _ |";
                         break;
-                    case ChunkType.LowObstacle:
+                    case ChunkItemType.LowObstacle:
                         line += " L |";
                         break;
-                    case ChunkType.HighObstacle:
+                    case ChunkItemType.HighObstacle:
                         line += " H |";
                         break;
-                    case ChunkType.BarCounter:
+                    case ChunkItemType.BarCounter:
                         line += " B |";
                         break;
                 }
@@ -60,12 +60,12 @@ public class DebugChunkedPathSpawner : MonoBehaviour
 
     private void Spawn(List<Chunk> chunks)
     {
-        var objects = new Dictionary<ChunkType, GameObject>()
+        var objects = new Dictionary<ChunkItemType, GameObject>()
         {
-            { ChunkType.Free, null },
-            { ChunkType.LowObstacle, _lowObstacle },
-            { ChunkType.HighObstacle, _highObstacle },
-            { ChunkType.BarCounter, _barCounter }
+            { ChunkItemType.Free, null },
+            { ChunkItemType.LowObstacle, _lowObstacle },
+            { ChunkItemType.HighObstacle, _highObstacle },
+            { ChunkItemType.BarCounter, _barCounter }
         };
 
         for (int i = 0; i < chunks.Count; i++)

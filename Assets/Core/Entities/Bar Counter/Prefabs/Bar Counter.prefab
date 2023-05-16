@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2331354756597525910}
   - component: {fileID: 7117065874410830782}
   - component: {fileID: 795912582362644389}
+  - component: {fileID: -6536091528526785929}
   m_Layer: 0
   m_Name: Bar Counter
   m_TagString: Untagged
@@ -60,7 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
@@ -97,6 +97,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7fabad1d13bb6147ad8de802af7c064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6536091528526785929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331354756597525897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1ec5d5fb9d9ed4d852c160a312b77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2331354757158202979

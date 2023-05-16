@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 1823313336625447629}
   - component: {fileID: 7085388514233033919}
   m_Layer: 0
-  m_Name: EnviromentalObject
+  m_Name: EnviromentObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 37
+  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
