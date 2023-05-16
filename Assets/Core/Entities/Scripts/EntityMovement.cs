@@ -5,19 +5,25 @@ using UnityEngine;
 
 public class EntityMovement : MonoBehaviour
 {
-    [SerializeField] public float Speed { get; private set; } = 7f;
+    [SerializeField] private float _speed = 7f;
     [SerializeField] private float _smoothingTime = 0.5f;
     [SerializeField] private Vector3 _direction = Vector3.right;
     [SerializeField] private AnimationCurve _curve;
 
     private Vector3 _deltaPosition = Vector3.zero;
 
+    private void Start()
+    {
+        _deltaPosition = _direction * _speed * Time.fixedDeltaTime;
+        // StartMovement();
+    }
+
     private void FixedUpdate()
     {
+        
         transform.position += _deltaPosition;
-
-        if (Input.GetKey(KeyCode.Q)) StartMovement();
-        if (Input.GetKey(KeyCode.W)) StopMovement();
+        // if (Input.GetKey(KeyCode.Q)) StartMovement();
+        // if (Input.GetKey(KeyCode.W)) StopMovement();
     }
 
     public void StartMovement()
@@ -34,7 +40,7 @@ public class EntityMovement : MonoBehaviour
     {
         for (float t = _smoothingTime; t >= 0f; t -= Time.fixedDeltaTime)
         {
-            _deltaPosition  = _direction * _curve.Evaluate(t / _smoothingTime) * Speed * Time.fixedDeltaTime;
+            _deltaPosition  = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
             yield return null;
         }
     }
@@ -43,7 +49,7 @@ public class EntityMovement : MonoBehaviour
     {
         for (float t = 0; t < _smoothingTime; t += Time.fixedDeltaTime)
         {
-            _deltaPosition = _direction * _curve.Evaluate(t / _smoothingTime) * Speed * Time.fixedDeltaTime;
+            _deltaPosition = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
             yield return null;
         }
     }

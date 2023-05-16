@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5352006097480175711}
   - component: {fileID: 8509624530863375367}
   - component: {fileID: 4439166405717572759}
-  - component: {fileID: 3718712345829851301}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3718712345829851301
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5338752774439896855}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8957316897201883922
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +94,7 @@ GameObject:
   - component: {fileID: 5213268707682403268}
   - component: {fileID: -8426313595027284251}
   - component: {fileID: -3812259532110585815}
+  - component: {fileID: 698794252747291654}
   m_Layer: 0
   m_Name: Low Obstacle
   m_TagString: Untagged
@@ -143,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aacd8588b662a4a8fac01e14c98a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 7
   _smoothingTime: 0.5
   _direction: {x: 1, y: 0, z: 0}
   _curve:
@@ -181,3 +169,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1ec5d5fb9d9ed4d852c160a312b77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &698794252747291654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957316897201883922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0.75, z: 0}

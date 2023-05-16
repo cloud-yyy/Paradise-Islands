@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ChunkedPathGenerator : MonoBehaviour
 {
-    [SerializeField] private int _length;
-
     [Header("Global Probabilities")]
     [SerializeField] private float _pathTurningProbability = 0.85f;
 

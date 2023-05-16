@@ -4,77 +4,58 @@ using UnityEngine;
 
 public class PoolMono<T> where T : MonoBehaviour
 {
-    [SerializeField] private T[] _prefabs;
-    [SerializeField] private Transform _defaultPosition;
-
     private List<T> _pool;
-    private bool _activeByDefault;
+    private int _size;
 
-    public PoolMono(T[] prefabs, Transform defaultPosition, int count, bool activeByDefault)
+    public PoolMono(T[] prefabs, int size)
     {
-        _prefabs = prefabs;
-        _activeByDefault = activeByDefault;
-        _defaultPosition = defaultPosition;
-
-        CreatePool(count);
+        _size = size;
+        CreatePool(prefabs);
     }
 
-    private void CreatePool(int count)
+    public bool HasElement()
     {
-        _pool = new List<T>();
-
-        for (int i = 0; i < count; i++)
-            CreateElement();
-    }
-
-    private void CreateElement()
-    {
-        for (int i = 0; i < _prefabs.Length; i++)
+        foreach (var item in _pool)
         {
-            var created = Object.Instantiate(_prefabs[Random.Range(0, _prefabs.Length)], _defaultPosition);
-            created.gameObject.SetActive(_activeByDefault);
-            _pool.Add(created);
-
-            if (i == _prefabs.Length - 1) i = -1;
+            if (!item.gameObject.activeInHierarchy)
+                return true;
         }
+        return false;
     }
 
-    public T GetFreeElement(Vector3 position)
+    public T GetRandomElement(Vector3 position)
     {
-        if (!HasFreeElements(out List<T> elements))
-            throw new System.Exception($"no free elements in pool of {typeof(T)}");
+        if (!HasElement())
+            throw new System.InvalidOperationException();
 
-        return SetupElement(elements[0], position);
-    }
+        var elements = new List<T>();
 
-    public T GetFreeRandomElement(Vector3 position)
-    {
-        if (!HasFreeElements(out List<T> elements))
-            throw new System.Exception($"no free elements in pool of {typeof(T)}");
-
-        return SetupElement(elements[Random.Range(0, elements.Count)], position);
-    }
-
-    private T SetupElement(T element, Vector3 position)
-    {
-        element.gameObject.SetActive(true);
-        element.transform.position = position;
-        return element;
-    }
-
-    public bool HasFreeElements() => HasFreeElements(out var elements);
-
-    public bool HasFreeElements(out List<T> elements)
-    {
-        elements = new List<T>();
         foreach (var item in _pool)
         {
             if (!item.gameObject.activeInHierarchy)
                 elements.Add(item);
         }
 
-        if (elements.Count > 0)
-            return true;
-        return false;
+        var element = elements[Random.Range(0, elements.Count)];
+        element.transform.position = position;
+        element.gameObject.SetActive(true);
+        
+        return element;
+    }
+
+    private void CreatePool(T[] prefabs)
+    {
+        _pool = new List<T>(_size);
+
+        int j = 0;
+
+        for (int i = 0; i < _size; i++)
+        {
+            var element = Object.Instantiate(prefabs[j]);
+            element.gameObject.SetActive(false);
+            _pool.Add(element);
+
+            if (++j == prefabs.Length) j = 0;
+        }
     }
 }

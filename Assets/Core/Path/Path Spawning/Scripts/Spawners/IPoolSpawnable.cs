@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITickable
+public interface IPoolSpawnable
 {
-    public void Tick(Transform position);
+    public void Spawn(Vector3 position);
 }
