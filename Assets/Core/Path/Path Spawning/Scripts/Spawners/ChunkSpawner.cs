@@ -17,7 +17,7 @@ public class ChunkSpawner : MonoBehaviour
     private int _currentIndex = 0;
 
     public Vector3 PathItemPosition { get; private set; }
-    public bool CanSpawn => _currentIndex < _path.Count;
+    public bool CanSpawn => _path != null && _currentIndex < _path.Count;
 
     private void Start()
     {
@@ -51,5 +51,6 @@ public class ChunkSpawner : MonoBehaviour
         var element = Object.Instantiate(_barCounterPrefab);
         element.transform.position = position;
         element.gameObject.SetActive(true);
+        element.Movement.StartMoving();
     }
 }

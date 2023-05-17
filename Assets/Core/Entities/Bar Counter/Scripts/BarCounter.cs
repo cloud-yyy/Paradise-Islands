@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarCounter : MonoBehaviour
+public class BarCounter : Entity
 {
     private void OnTriggerEnter(Collider other)
     {

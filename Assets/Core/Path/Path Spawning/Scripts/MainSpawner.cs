@@ -26,18 +26,20 @@ public class MainSpawner : MonoBehaviour
     {
         while(true)
         {
-            Spawn();
             yield return new WaitForSeconds(_tickTime);
+            Spawn(_position.position);
         }
     }
 
-    private void Spawn()
+    public void Spawn(Vector3 position)
     {
         if (_chunkSpawner.CanSpawn)
         {
-            _enviromentSpawner.Spawn(_position.position);
-            _chunkSpawner.Spawn(_position.position);
-            _lootableSpawner.Spawn(_chunkSpawner.PathItemPosition);
+            _enviromentSpawner.Spawn(position);
+            _chunkSpawner.Spawn(position);
+
+            if (_chunkSpawner.CanSpawn)
+                _lootableSpawner.Spawn(_chunkSpawner.PathItemPosition);
         }
     }
 }

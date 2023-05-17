@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : MonoBehaviour
+public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
 {
     [SerializeField] private int _poolSize;
     [SerializeField] private T[] _prefabs;
 
-    private PoolMono<T> _pool;
+    private EntityPool<T> _pool;
 
     private void Start()
     {
-        _pool = new PoolMono<T>(_prefabs, _poolSize);
+        _pool = new EntityPool<T>(_prefabs, _poolSize);
     }
 
     public virtual void Spawn(Vector3 position) { }
@@ -20,7 +20,11 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : MonoBeha
     {
         if (_pool.HasElement())
         {
-            _pool.GetRandomElement(position);
+            var element = _pool.GetRandomElement(position);
+
+            if (element == null) Debug.Log("null");
+
+            element.Movement.StartMoving();
             return true;
         }
         return false;

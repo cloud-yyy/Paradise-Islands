@@ -12,26 +12,17 @@ public class EntityMovement : MonoBehaviour
 
     private Vector3 _deltaPosition = Vector3.zero;
 
-    private void Start()
-    {
-        _deltaPosition = _direction * _speed * Time.fixedDeltaTime;
-        // StartMovement();
-    }
-
     private void FixedUpdate()
     {
-        
         transform.position += _deltaPosition;
-        // if (Input.GetKey(KeyCode.Q)) StartMovement();
-        // if (Input.GetKey(KeyCode.W)) StopMovement();
     }
 
-    public void StartMovement()
+    public void StartMoving()
     {
         StartCoroutine(StartSmoothed());
     }
 
-    public void StopMovement()
+    public void StopMoving()
     {
         StartCoroutine(StopSmoothed());
     }

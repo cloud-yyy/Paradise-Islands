@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolMono<T> where T : MonoBehaviour
+public class EntityPool<T> where T : Entity
 {
     private List<T> _pool;
     private int _size;
 
-    public PoolMono(T[] prefabs, int size)
+    public EntityPool(T[] prefabs, int size)
     {
         _size = size;
         CreatePool(prefabs);
