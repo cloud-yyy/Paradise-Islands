@@ -187,11 +187,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pathLength: 50
-  _offset: {x: 0, y: 0, z: 3.5}
+  _offset: {x: 0, y: 0, z: 3.8}
   _highLootableOffset: {x: 0, y: 2, z: 0}
   _lowObstacleSpawner: {fileID: 8613585024207658857}
   _highObstacleSpawner: {fileID: 8613585022876747943}
-  _barCounerSpawner: {fileID: 4922568565200254797}
+  _barCounterSpawner: {fileID: 4922568565200254797}
   _generator: {fileID: 8613585023039204851}
   _barCounterPrefab: {fileID: 795912582362644389, guid: a0b6491a1bd69334697529270f15e4ba,
     type: 3}
@@ -518,4 +518,4 @@ MonoBehaviour:
   _lootableSpawner: {fileID: 8613585023618564353}
   _enviromentSpawner: {fileID: 8613585022803008974}
   _position: {fileID: 0}
-  _tickTime: 0.5
+  _tickTime: 0.54285717

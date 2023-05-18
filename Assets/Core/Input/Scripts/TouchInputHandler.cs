@@ -9,8 +9,10 @@ public class TouchInputHandler : MonoBehaviour, IInputHandler
     private const float _minSwipeMagnitude = 0.08f;
     private Vector3 _lastPosition;
 
-    public event Action<float> OnVerticalInteracted;
-    public event Action<float> OnHorizontalInteracted;
+    public event Action OnSlideUp;
+    public event Action OnSlideDown;
+    public event Action OnSlideRight;
+    public event Action OnSlideLeft;
 
     public void Update()
     {
@@ -24,9 +26,15 @@ public class TouchInputHandler : MonoBehaviour, IInputHandler
             if (delta.magnitude > Screen.width * _minSwipeMagnitude)
             {
                 if (Math.Abs(delta.y) >= Math.Abs(delta.x))
-                    OnVerticalInteracted?.Invoke(delta.y);
+                {
+                    if (delta.y >= 0) OnSlideUp?.Invoke();
+                    else OnSlideDown?.Invoke();
+                }
                 else
-                    OnHorizontalInteracted?.Invoke(delta.x);
+                {
+                    if (delta.x >= 0) OnSlideRight?.Invoke();
+                    else OnSlideLeft?.Invoke();
+                }
 
             }
         }

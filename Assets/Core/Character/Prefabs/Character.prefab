@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 7769313378823156730}
   - component: {fileID: 6818078575132900393}
   - component: {fileID: 5168505258195448615}
+  - component: {fileID: 1459646921563717637}
   - component: {fileID: 7936853070249830080}
   m_Layer: 0
   m_Name: Character
@@ -135,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positions: []
-  _slideSpeed: 12
+  _slideSpeed: 10
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -296,6 +297,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _counter: {fileID: 0}
+--- !u!114 &1459646921563717637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7715703166193864064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a41b474612fc724aa4bde4e504ee18d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7936853070249830080
 MonoBehaviour:
   m_ObjectHideFlags: 0

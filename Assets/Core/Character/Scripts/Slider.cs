@@ -10,7 +10,7 @@ public class Slider : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
 
     private PositionSwither _swither;
-    private TouchInputHandler _inputHandler;
+    private IInputHandler _inputHandler;
     private Transform _target;
     private CharacterAnimator _animator;
 
@@ -19,29 +19,31 @@ public class Slider : MonoBehaviour
         _swither = new PositionSwither(_positions, 1);
         _target = _swither.CurrentPosition;
 
+#if UNITY_STANDALONE
+        _inputHandler = GetComponent<KeyboardInputHandler>();
+#else
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnHorizontalInteracted += Slide;
+#endif
+
+        _inputHandler.OnSlideRight += SlideRight;
+        _inputHandler.OnSlideLeft += SlideLeft;
 
         _animator = GetComponent<CharacterAnimator>();
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnHorizontalInteracted -= Slide;
+        _inputHandler.OnSlideRight -= SlideRight;
+        _inputHandler.OnSlideLeft -= SlideLeft;
+
     }
 
     private void FixedUpdate()
     {
         if (transform.position.z != _target.position.z)
-            transform.position = Vector3
-                .Lerp(transform.position, _target.position, _curve.Evaluate(Time.deltaTime * _slideSpeed));
+            transform.position = Vector3.Lerp(transform.position, _target.position, _curve.Evaluate(Time.deltaTime * _slideSpeed));
     }
 
-    private void Slide(float direction)
-    {
-        if (direction > 0)
-            _target = _swither.TryMoveRight();
-        else
-            _target = _swither.TryMoveLeft();
-    }
+    private void SlideRight() => _target = _swither.TryMoveRight();
+    private void SlideLeft() => _target = _swither.TryMoveLeft();
 }

@@ -11,29 +11,39 @@ public class Jumper : MonoBehaviour
     [SerializeField] private AnimationCurve _jumpingCurve;
     [SerializeField] private AnimationCurve _fallingCurve;
 
-    private TouchInputHandler _inputHandler;
+    private IInputHandler _inputHandler;
     private CharacterAnimator _animator;
     private bool _isJumping = false;
 
     private void Start()
     {
+#if UNITY_STANDALONE
+        _inputHandler = GetComponent<KeyboardInputHandler>();
+#else
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnVerticalInteracted += TryJump;
+#endif
+
+        _inputHandler.OnSlideUp += TryJump;
+        _inputHandler.OnSlideDown += TryFall;
 
         _animator = GetComponent<CharacterAnimator>();
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnVerticalInteracted -= TryJump;
+        _inputHandler.OnSlideUp -= TryJump;
+        _inputHandler.OnSlideDown -= TryFall;
     }
 
-    private void TryJump(float direction)
+    private void TryJump()
     {
-        if (direction > 0 && !_isJumping)
+        if (!_isJumping)
             StartCoroutine(StartJumping());
+    }
 
-        if (direction < 0 && _isJumping)
+    private void TryFall()
+    {
+        if (_isJumping)
         {
             StopAllCoroutines();
             StartCoroutine(StartFalling());

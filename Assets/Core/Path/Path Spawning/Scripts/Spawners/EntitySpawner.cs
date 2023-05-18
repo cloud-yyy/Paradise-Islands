@@ -27,6 +27,14 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
             item.Movement.StopMoving();
     }
 
+    public void MoveAllEntities()
+    {
+        var freeEntities = _pool.GetActiveElements();
+
+        foreach (var item in freeEntities)
+            item.Movement.StartMoving();
+    }
+
     protected bool TrySpawn(Vector3 position)
     {
         if (_pool.HasElement())
