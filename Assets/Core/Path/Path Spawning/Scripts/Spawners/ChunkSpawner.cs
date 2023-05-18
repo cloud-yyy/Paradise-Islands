@@ -10,6 +10,7 @@ public class ChunkSpawner : MonoBehaviour
 
     [SerializeField] private ObstaclesSpawner _lowObstacleSpawner;
     [SerializeField] private ObstaclesSpawner _highObstacleSpawner;
+    [SerializeField] private BarCounterSpawner _barCounterSpawner;
     [SerializeField] private ChunkedPathGenerator _generator;
     [SerializeField] private BarCounter _barCounterPrefab;
 
@@ -22,6 +23,13 @@ public class ChunkSpawner : MonoBehaviour
     private void Start()
     {
         _path = _generator.CreatePath(_pathLength);
+    }
+
+    public void StopAllEntities()
+    {
+        _lowObstacleSpawner.StopAllEntities();
+        _highObstacleSpawner.StopAllEntities();
+        _barCounterSpawner.StopAllEntities();
     }
 
     public void Spawn(Vector3 position)
@@ -37,7 +45,7 @@ public class ChunkSpawner : MonoBehaviour
                 PathItemPosition = type == ChunkItemType.Free ? currentPosition : currentPosition + _highLootableOffset;
 
             if (type == ChunkItemType.BarCounter)
-                SpawnBarCounter(position);
+                _barCounterSpawner.Spawn(currentPosition);
             if (type == ChunkItemType.LowObstacle)
                 _lowObstacleSpawner.Spawn(currentPosition);
             if (type == ChunkItemType.HighObstacle)

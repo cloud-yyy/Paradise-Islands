@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TouchInputHandler))]
+[RequireComponent(typeof(IInputHandler))]
 public class Jumper : MonoBehaviour
 {
     [SerializeField] private float _jumpHeight = 3f;
@@ -18,14 +18,14 @@ public class Jumper : MonoBehaviour
     private void Start()
     {
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnSwipedVertical += TryJump;
+        _inputHandler.OnVerticalInteracted += TryJump;
 
         _animator = GetComponent<CharacterAnimator>();
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnSwipedVertical -= TryJump;
+        _inputHandler.OnVerticalInteracted -= TryJump;
     }
 
     private void TryJump(float direction)

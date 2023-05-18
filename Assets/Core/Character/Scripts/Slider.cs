@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TouchInputHandler))]
+[RequireComponent(typeof(IInputHandler))]
 public class Slider : MonoBehaviour
 {
     [SerializeField] private Transform[] _positions;
@@ -20,14 +20,14 @@ public class Slider : MonoBehaviour
         _target = _swither.CurrentPosition;
 
         _inputHandler = GetComponent<TouchInputHandler>();
-        _inputHandler.OnSwipedHorizontal += Slide;
+        _inputHandler.OnHorizontalInteracted += Slide;
 
         _animator = GetComponent<CharacterAnimator>();
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnSwipedHorizontal -= Slide;
+        _inputHandler.OnHorizontalInteracted -= Slide;
     }
 
     private void FixedUpdate()

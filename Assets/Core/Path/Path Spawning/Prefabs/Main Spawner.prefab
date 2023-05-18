@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8606528334770183669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975726913147169998}
+  - component: {fileID: 4922568565200254797}
+  m_Layer: 0
+  m_Name: Bar Counter Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975726913147169998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606528334770183669}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8613585024311052802}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4922568565200254797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606528334770183669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10330242ec333d94aa91a5436f27583e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSize: 1
+  _prefabs:
+  - {fileID: 795912582362644389, guid: a0b6491a1bd69334697529270f15e4ba, type: 3}
 --- !u!1 &8613585022803008972
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +191,7 @@ MonoBehaviour:
   _highLootableOffset: {x: 0, y: 2, z: 0}
   _lowObstacleSpawner: {fileID: 8613585024207658857}
   _highObstacleSpawner: {fileID: 8613585022876747943}
+  _barCounerSpawner: {fileID: 4922568565200254797}
   _generator: {fileID: 8613585023039204851}
   _barCounterPrefab: {fileID: 795912582362644389, guid: a0b6491a1bd69334697529270f15e4ba,
     type: 3}
@@ -449,6 +497,7 @@ Transform:
   - {fileID: 8613585023039204848}
   - {fileID: 8613585023410697050}
   - {fileID: 8613585023385911003}
+  - {fileID: 975726913147169998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa6475ced2ef274bb9361e67a32c87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
   _chunkSpawner: {fileID: 8613585023000182870}
   _lootableSpawner: {fileID: 8613585023618564353}
   _enviromentSpawner: {fileID: 8613585022803008974}

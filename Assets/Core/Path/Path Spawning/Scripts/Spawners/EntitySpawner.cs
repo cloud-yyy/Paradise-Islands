@@ -14,16 +14,24 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
         _pool = new EntityPool<T>(_prefabs, _poolSize);
     }
 
-    public virtual void Spawn(Vector3 position) { }
+    public virtual void Spawn(Vector3 position)
+    {
+        TrySpawn(position);
+    }
+
+    public void StopAllEntities()
+    {
+        var freeEntities = _pool.GetActiveElements();
+
+        foreach (var item in freeEntities)
+            item.Movement.StopMoving();
+    }
 
     protected bool TrySpawn(Vector3 position)
     {
         if (_pool.HasElement())
         {
             var element = _pool.GetRandomElement(position);
-
-            if (element == null) Debug.Log("null");
-
             element.Movement.StartMoving();
             return true;
         }

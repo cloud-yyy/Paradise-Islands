@@ -23,18 +23,30 @@ public class EntityPool<T> where T : Entity
         return false;
     }
 
+    public List<T> GetFreeElements() => GetElements(false);
+
+    public List<T> GetActiveElements() => GetElements(true);
+
+    public List<T> GetElements(bool active)
+    {
+        var elements = new List<T>();
+
+        foreach (var item in _pool)
+        {
+            if (item.gameObject.activeInHierarchy && active)
+                elements.Add(item);
+            if (!item.gameObject.activeInHierarchy && !active)
+                elements.Add(item);
+        }
+        return elements;
+    }
+
     public T GetRandomElement(Vector3 position)
     {
         if (!HasElement())
             throw new System.InvalidOperationException();
 
-        var elements = new List<T>();
-
-        foreach (var item in _pool)
-        {
-            if (!item.gameObject.activeInHierarchy)
-                elements.Add(item);
-        }
+        var elements = GetFreeElements();
 
         var element = elements[Random.Range(0, elements.Count)];
         element.transform.position = position;

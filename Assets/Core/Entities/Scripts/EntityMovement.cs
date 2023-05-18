@@ -6,9 +6,9 @@ using UnityEngine;
 public class EntityMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 7f;
-    [SerializeField] private float _smoothingTime = 0.5f;
     [SerializeField] private Vector3 _direction = Vector3.right;
-    [SerializeField] private AnimationCurve _curve;
+
+    private bool _stopped;
 
     private Vector3 _deltaPosition = Vector3.zero;
 
@@ -19,29 +19,11 @@ public class EntityMovement : MonoBehaviour
 
     public void StartMoving()
     {
-        StartCoroutine(StartSmoothed());
+        _deltaPosition = _direction * _speed * Time.fixedDeltaTime;
     }
 
     public void StopMoving()
     {
-        StartCoroutine(StopSmoothed());
-    }
-
-    private IEnumerator StopSmoothed()
-    {
-        for (float t = _smoothingTime; t >= 0f; t -= Time.fixedDeltaTime)
-        {
-            _deltaPosition  = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
-            yield return null;
-        }
-    }
-
-    private IEnumerator StartSmoothed()
-    {
-        for (float t = 0; t < _smoothingTime; t += Time.fixedDeltaTime)
-        {
-            _deltaPosition = _direction * _curve.Evaluate(t / _smoothingTime) * _speed * Time.fixedDeltaTime;
-            yield return null;
-        }
+        _deltaPosition = Vector3.zero;
     }
 }

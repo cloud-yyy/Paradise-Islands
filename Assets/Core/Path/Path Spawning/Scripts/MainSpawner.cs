@@ -4,12 +4,31 @@ using UnityEngine;
 
 public class MainSpawner : MonoBehaviour
 {
+    [SerializeField] private Character _character;
     [SerializeField] private ChunkSpawner _chunkSpawner;
     [SerializeField] private LootableSpawner _lootableSpawner;
     [SerializeField] private EnviromentSpawner _enviromentSpawner;
 
     [SerializeField] private Transform _position;
     [SerializeField] private float _tickTime;
+
+    private void OnEnable()
+    {
+        _character.OnStopped += _chunkSpawner.StopAllEntities;
+        _character.OnStopped += _lootableSpawner.StopAllEntities;
+        _character.OnStopped += _enviromentSpawner.StopAllEntities;
+
+        _character.OnStopped += StopSpawning;
+    }
+
+    private void OnDisable()
+    {
+        _character.OnStopped -= _chunkSpawner.StopAllEntities;
+        _character.OnStopped -= _lootableSpawner.StopAllEntities;
+        _character.OnStopped -= _enviromentSpawner.StopAllEntities;
+
+        _character.OnStopped -= StopSpawning;
+    }
 
     private void Update()
     {
