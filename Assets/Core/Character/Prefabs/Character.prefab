@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positions: []
-  _slideSpeed: 10
+  _slideSpeed: 9
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf90207770d05c4497e5734dba4cd95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpHeight: 3.5
-  _jumpDuration: 0.8
+  _jumpHeight: 3.2
+  _jumpDuration: 0.9
   _fallDuration: 0.4
   _jumpingCurve:
     serializedVersion: 2
