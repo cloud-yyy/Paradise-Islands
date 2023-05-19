@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkSpawner : MonoBehaviour
+public class ChunkSpawner : MonoBehaviour, IPoolSpawnable
 {
-    [SerializeField] private int _pathLength;
     [SerializeField] private Vector3 _offset;
     [SerializeField] private Vector3 _highLootableOffset;
 
+    [Header("Spawners")]
     [SerializeField] private ObstaclesSpawner _lowObstacleSpawner;
     [SerializeField] private ObstaclesSpawner _highObstacleSpawner;
     [SerializeField] private BarCounterSpawner _barCounterSpawner;
-    [SerializeField] private ChunkedPathGenerator _generator;
     [SerializeField] private BarCounter _barCounterPrefab;
 
-    private List<Chunk> _path;
+    private Chunk[] _path;
     private int _currentIndex = 0;
 
     public Vector3 PathItemPosition { get; private set; }
-    public bool CanSpawn => _path != null && _currentIndex < _path.Count;
+    public bool CanSpawn => _path != null && _currentIndex < _path.Length;
 
-    private void Start()
+    public void Init(Chunk[] path, Vector3 startPosition)
     {
-        _path = _generator.CreatePath(_pathLength);
+        _path = path;
     }
+
 
     public void StopAllEntities()
     {

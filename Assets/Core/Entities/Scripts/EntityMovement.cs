@@ -10,7 +10,7 @@ public class EntityMovement : MonoBehaviour
 
     private bool _stopped;
 
-    private Vector3 _deltaPosition = Vector3.zero;
+    private Vector3 _deltaPosition;
 
     private void FixedUpdate()
     {

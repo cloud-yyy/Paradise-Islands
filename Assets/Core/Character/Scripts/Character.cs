@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private LootCounter _counter;
     public event Action OnStopped;
+    public event Action OnFinished;
 
     private int _lootableCount = 0;
     private Slider _slider;
@@ -42,5 +43,6 @@ public class Character : MonoBehaviour
         _jumper.enabled = false;
 
         OnStopped?.Invoke();
+        OnFinished?.Invoke();
     }
 }

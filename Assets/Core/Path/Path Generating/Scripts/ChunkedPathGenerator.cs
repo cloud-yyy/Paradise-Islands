@@ -14,7 +14,7 @@ public class ChunkedPathGenerator : MonoBehaviour
     [SerializeField] private float _lowObstacleCreatingProbability = 0.3f;
     [SerializeField] private float _highObstacleCreatingProbability = 0.5f;
 
-    public List<Chunk> CreatePath(int length)
+    public Chunk[] CreatePath(int length)
     {
         if (length < 0) throw new System.ArgumentException(nameof(length));
 
@@ -27,7 +27,7 @@ public class ChunkedPathGenerator : MonoBehaviour
         path.Add(new Chunk(1, ChunkItemType.HighObstacle, ChunkItemType.Free, ChunkItemType.HighObstacle));
         path.Add(new Chunk(1, ChunkItemType.Free, ChunkItemType.BarCounter, ChunkItemType.Free));
 
-        return path;
+        return path.ToArray();
     }
 
     private Chunk CreateNextChunk(Chunk chunk)

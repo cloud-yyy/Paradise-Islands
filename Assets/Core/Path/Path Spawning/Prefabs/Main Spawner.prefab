@@ -186,13 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7cf2ef8e3831943978e67e971d64f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pathLength: 50
   _offset: {x: 0, y: 0, z: 3.8}
   _highLootableOffset: {x: 0, y: 2, z: 0}
   _lowObstacleSpawner: {fileID: 8613585024207658857}
   _highObstacleSpawner: {fileID: 8613585022876747943}
   _barCounterSpawner: {fileID: 4922568565200254797}
-  _generator: {fileID: 8613585023039204851}
   _barCounterPrefab: {fileID: 795912582362644389, guid: a0b6491a1bd69334697529270f15e4ba,
     type: 3}
 --- !u!1 &8613585023039204849
@@ -519,3 +517,5 @@ MonoBehaviour:
   _enviromentSpawner: {fileID: 8613585022803008974}
   _position: {fileID: 0}
   _tickTime: 0.54285717
+  _preStartSpawnCount: 9
+  _preStartOffset: {x: 3.8, y: 0, z: 0}

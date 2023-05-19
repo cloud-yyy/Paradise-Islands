@@ -9,7 +9,7 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
 
     private EntityPool<T> _pool;
 
-    private void Start()
+    private void Awake()
     {
         _pool = new EntityPool<T>(_prefabs, _poolSize);
     }

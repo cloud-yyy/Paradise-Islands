@@ -12,30 +12,40 @@ public class MainSpawner : MonoBehaviour
     [SerializeField] private Transform _position;
     [SerializeField] private float _tickTime;
 
+    [SerializeField] private int _preStartSpawnCount;
+    [SerializeField] private Vector3 _preStartOffset;
+
+    public void InitPath(Chunk[] path)
+    {
+        _chunkSpawner.Init(path, _position.position);
+        PreStartSpawnEntities(_position.position);
+    }
+
+    private void PreStartSpawnEntities(Vector3 position)
+    {
+        for (int i = 0; i < _preStartSpawnCount; i++)
+        {
+            var currentPosition = position + _preStartOffset * i;
+            Spawn(currentPosition);
+        }
+    }
     private void OnEnable()
     {
-        _character.OnStopped += _chunkSpawner.StopAllEntities;
-        _character.OnStopped += _lootableSpawner.StopAllEntities;
-        _character.OnStopped += _enviromentSpawner.StopAllEntities;
-
+        _character.OnStopped += StopEntities;
         _character.OnStopped += StopSpawning;
     }
 
     private void OnDisable()
     {
-        _character.OnStopped -= _chunkSpawner.StopAllEntities;
-        _character.OnStopped -= _lootableSpawner.StopAllEntities;
-        _character.OnStopped -= _enviromentSpawner.StopAllEntities;
-
+        _character.OnStopped -= StopEntities;
         _character.OnStopped -= StopSpawning;
     }
-
-    private void Update()
+    
+    private void StopEntities()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
-            StartSpawning();
-        if (Input.GetKeyUp(KeyCode.W))
-            StopSpawning();
+        _chunkSpawner.StopAllEntities();
+        _lootableSpawner.StopAllEntities();
+        _enviromentSpawner.StopAllEntities();
     }
 
     public void StartSpawning() => StartCoroutine(Ticking());
