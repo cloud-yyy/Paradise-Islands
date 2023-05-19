@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPoolSpawnable
+public interface IPoolSpawnable<T>
 {
-    public void Spawn(Vector3 position);
+    public bool CanSpawn();
+    public void Spawn(Vector3 position, bool isMoving);
+    public bool TrySpawn(Vector3 position, bool isMoving, out T entity);
 }

@@ -17,16 +17,22 @@ public class Jumper : MonoBehaviour
 
     private void Start()
     {
-#if UNITY_STANDALONE
-        _inputHandler = GetComponent<KeyboardInputHandler>();
-#else
-        _inputHandler = GetComponent<TouchInputHandler>();
-#endif
-
-        _inputHandler.OnSlideUp += TryJump;
-        _inputHandler.OnSlideDown += TryFall;
-
         _animator = GetComponent<CharacterAnimator>();
+    }
+
+    public void Init(IInputHandler handler)
+    {
+        _inputHandler = handler;
+        OnEnable();
+    }
+
+    private void OnEnable()
+    {
+        if (_inputHandler != null)
+        {
+            _inputHandler.OnSlideDown += TryFall;
+            _inputHandler.OnSlideUp += TryJump;
+        }
     }
 
     private void OnDisable()

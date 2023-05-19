@@ -12,11 +12,23 @@ public class Character : MonoBehaviour
     private int _lootableCount = 0;
     private Slider _slider;
     private Jumper _jumper;
+    private IInputHandler _inputHandler;
 
     private void Start()
     {
+#if UNITY_STANDALONE
+        _inputHandler = GetComponent<KeyboardInputHandler>();
+#else
+        _inputHandler = GetComponent<TouchInputHandler>();
+#endif
+
         _slider = GetComponent<Slider>();
         _jumper = GetComponent<Jumper>();
+
+        _slider.Init(_inputHandler);
+        _jumper.Init(_inputHandler);
+
+        EnableMovement(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,18 +41,23 @@ public class Character : MonoBehaviour
         }
     }
 
+    public void EnableMovement(bool enabled)
+    {
+        Debug.Log(enabled);
+        _slider.enabled = enabled;
+        _jumper.enabled = enabled;
+    }
+
     public void Destroy()
     {
-        _slider.enabled = false;
-        _jumper.enabled = false;
+        EnableMovement(false);
 
         OnStopped?.Invoke();
     }
 
     public void Finish()
     {
-        _slider.enabled = false;
-        _jumper.enabled = false;
+        EnableMovement(false);
 
         OnStopped?.Invoke();
         OnFinished?.Invoke();

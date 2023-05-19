@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
+public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable<T>, IEntitiesMover where T : Entity
 {
     [SerializeField] private int _poolSize;
     [SerializeField] private T[] _prefabs;
@@ -14,12 +15,27 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
         _pool = new EntityPool<T>(_prefabs, _poolSize);
     }
 
-    public virtual void Spawn(Vector3 position)
+    public bool CanSpawn() => _pool.HasElement();
+
+    public bool TrySpawn(Vector3 position, bool isMoving, out T entity)
     {
-        TrySpawn(position);
+        if (CanSpawn())
+        {
+            entity = _pool.GetRandomElement(position);
+            if (isMoving) entity.Movement.StartMoving();
+            return true;
+        }
+        entity = null;
+        return false;
     }
 
-    public void StopAllEntities()
+    public virtual void Spawn(Vector3 position, bool isMoving)
+    {
+        if (!TrySpawn(position, isMoving, out var entity))
+            throw new InvalidOperationException();
+    }
+
+    public void StopMovement()
     {
         var freeEntities = _pool.GetActiveElements();
 
@@ -27,22 +43,11 @@ public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable where T : Entity
             item.Movement.StopMoving();
     }
 
-    public void MoveAllEntities()
+    public void StartMovement()
     {
         var freeEntities = _pool.GetActiveElements();
 
         foreach (var item in freeEntities)
             item.Movement.StartMoving();
-    }
-
-    protected bool TrySpawn(Vector3 position)
-    {
-        if (_pool.HasElement())
-        {
-            var element = _pool.GetRandomElement(position);
-            element.Movement.StartMoving();
-            return true;
-        }
-        return false;
     }
 }

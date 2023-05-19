@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainSpawner : MonoBehaviour
+public class MainSpawner : MonoBehaviour, IEntitiesMover
 {
     [SerializeField] private Character _character;
     [SerializeField] private ChunkSpawner _chunkSpawner;
@@ -17,7 +17,7 @@ public class MainSpawner : MonoBehaviour
 
     public void InitPath(Chunk[] path)
     {
-        _chunkSpawner.Init(path, _position.position);
+        _chunkSpawner.Init(path);
         PreStartSpawnEntities(_position.position);
     }
 
@@ -26,49 +26,65 @@ public class MainSpawner : MonoBehaviour
         for (int i = 0; i < _preStartSpawnCount; i++)
         {
             var currentPosition = position + _preStartOffset * i;
-            Spawn(currentPosition);
+            Spawn(currentPosition, false);
         }
     }
     private void OnEnable()
     {
-        _character.OnStopped += StopEntities;
-        _character.OnStopped += StopSpawning;
+        _character.OnStopped += Stop;
     }
 
     private void OnDisable()
     {
-        _character.OnStopped -= StopEntities;
-        _character.OnStopped -= StopSpawning;
-    }
-    
-    private void StopEntities()
-    {
-        _chunkSpawner.StopAllEntities();
-        _lootableSpawner.StopAllEntities();
-        _enviromentSpawner.StopAllEntities();
+        _character.OnStopped -= Stop;
     }
 
-    public void StartSpawning() => StartCoroutine(Ticking());
-    public void StopSpawning() => StopAllCoroutines();
+    public void Run()
+    {
+        _character.EnableMovement(true);
+
+        StartCoroutine(Ticking());
+        StartMovement();
+    }
+
+    public void Stop()
+    {
+        StopAllCoroutines();
+        StopMovement();
+    }
 
     private IEnumerator Ticking()
     {
         while(true)
         {
             yield return new WaitForSeconds(_tickTime);
-            Spawn(_position.position);
+            Spawn(_position.position, true);
         }
     }
 
-    public void Spawn(Vector3 position)
+    public void Spawn(Vector3 position, bool isMoving)
     {
         if (_chunkSpawner.CanSpawn)
         {
-            _enviromentSpawner.Spawn(position);
-            _chunkSpawner.Spawn(position);
+            _enviromentSpawner.Spawn(position, isMoving);
+            _chunkSpawner.Spawn(position, isMoving);
 
             if (_chunkSpawner.CanSpawn)
-                _lootableSpawner.Spawn(_chunkSpawner.PathItemPosition);
+                _lootableSpawner.Spawn(_chunkSpawner.PathItemPosition, isMoving);
         }
+    }
+
+    public void StartMovement()
+    {
+        _chunkSpawner.StartMovement();
+        _lootableSpawner.StartMovement();
+        _enviromentSpawner.StartMovement();
+    }
+
+    public void StopMovement()
+    {
+        _chunkSpawner.StopMovement();
+        _lootableSpawner.StopMovement();
+        _enviromentSpawner.StopMovement();
     }
 }

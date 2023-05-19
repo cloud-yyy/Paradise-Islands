@@ -18,24 +18,28 @@ public class Slider : MonoBehaviour
     {
         _swither = new PositionSwither(_positions, 1);
         _target = _swither.CurrentPosition;
-
-#if UNITY_STANDALONE
-        _inputHandler = GetComponent<KeyboardInputHandler>();
-#else
-        _inputHandler = GetComponent<TouchInputHandler>();
-#endif
-
-        _inputHandler.OnSlideRight += SlideRight;
-        _inputHandler.OnSlideLeft += SlideLeft;
-
         _animator = GetComponent<CharacterAnimator>();
+    }
+
+    public void Init(IInputHandler handler)
+    {
+        _inputHandler = handler;
+        OnEnable();
+    }
+
+    private void OnEnable()
+    {
+        if (_inputHandler != null)
+        {
+            _inputHandler.OnSlideLeft += SlideLeft;
+            _inputHandler.OnSlideRight += SlideRight;
+        }
     }
 
     private void OnDisable()
     {
         _inputHandler.OnSlideRight -= SlideRight;
         _inputHandler.OnSlideLeft -= SlideLeft;
-
     }
 
     private void FixedUpdate()

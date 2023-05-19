@@ -30,12 +30,10 @@ public class EntityPool<T> where T : Entity
     public List<T> GetElements(bool active)
     {
         var elements = new List<T>();
-
         foreach (var item in _pool)
         {
-            if (item.gameObject.activeInHierarchy && active)
-                elements.Add(item);
-            if (!item.gameObject.activeInHierarchy && !active)
+            if ((item.gameObject.activeInHierarchy && active) ||
+                (!item.gameObject.activeInHierarchy && !active))
                 elements.Add(item);
         }
         return elements;
@@ -58,8 +56,7 @@ public class EntityPool<T> where T : Entity
     private void CreatePool(T[] prefabs)
     {
         _pool = new List<T>(_size);
-
-        int j = 0;
+        var j = 0;
 
         for (int i = 0; i < _size; i++)
         {

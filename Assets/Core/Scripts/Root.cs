@@ -23,7 +23,8 @@ public class Root : MonoBehaviour
 
     public void StartGame()
     {
-        _spawner.StartSpawning();
+        _spawner.StartMovement();
+        _spawner.Run();
     }
 
     private void OnLoaded(GameInfo info)
