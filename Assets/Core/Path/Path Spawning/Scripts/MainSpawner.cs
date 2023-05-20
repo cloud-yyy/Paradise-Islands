@@ -5,20 +5,22 @@ using UnityEngine;
 public class MainSpawner : MonoBehaviour, IEntitiesMover
 {
     [SerializeField] private Character _character;
+    [SerializeField] private Transform _startPosition;
+    [SerializeField] private float _tickTime;
+
+    [Header("Spawners")]
     [SerializeField] private ChunkSpawner _chunkSpawner;
     [SerializeField] private LootableSpawner _lootableSpawner;
     [SerializeField] private EnviromentSpawner _enviromentSpawner;
 
-    [SerializeField] private Transform _position;
-    [SerializeField] private float _tickTime;
-
+    [Header("Pre-Start")]
     [SerializeField] private int _preStartSpawnCount;
     [SerializeField] private Vector3 _preStartOffset;
 
     public void InitPath(Chunk[] path)
     {
         _chunkSpawner.Init(path);
-        PreStartSpawnEntities(_position.position);
+        PreStartSpawnEntities(_startPosition.position);
     }
 
     private void PreStartSpawnEntities(Vector3 position)
@@ -58,11 +60,11 @@ public class MainSpawner : MonoBehaviour, IEntitiesMover
         while(true)
         {
             yield return new WaitForSeconds(_tickTime);
-            Spawn(_position.position, true);
+            Spawn(_startPosition.position, true);
         }
     }
 
-    public void Spawn(Vector3 position, bool isMoving)
+    private void Spawn(Vector3 position, bool isMoving)
     {
         if (_chunkSpawner.CanSpawn)
         {

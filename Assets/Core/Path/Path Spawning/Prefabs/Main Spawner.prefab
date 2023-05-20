@@ -461,10 +461,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 0}
+  _startPosition: {fileID: 0}
+  _tickTime: 0.54285717
   _chunkSpawner: {fileID: 8613585023000182870}
   _lootableSpawner: {fileID: 8613585023618564353}
   _enviromentSpawner: {fileID: 8613585022803008974}
-  _position: {fileID: 0}
-  _tickTime: 0.54285717
-  _preStartSpawnCount: 9
+  _preStartSpawnCount: 10
   _preStartOffset: {x: 3.8, y: 0, z: 0}

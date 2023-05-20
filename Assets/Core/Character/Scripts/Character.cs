@@ -31,19 +31,14 @@ public class Character : MonoBehaviour
         EnableMovement(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Loot()
     {
-        if (other.TryGetComponent(out Lootable lootable))
-        {
-            _counter.Add();
-            _lootableCount++;
-            lootable.Destroy();
-        }
+        _counter.Add();
+        _lootableCount++;
     }
 
     public void EnableMovement(bool enabled)
     {
-        Debug.Log(enabled);
         _slider.enabled = enabled;
         _jumper.enabled = enabled;
     }

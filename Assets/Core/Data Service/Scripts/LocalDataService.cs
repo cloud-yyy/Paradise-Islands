@@ -10,12 +10,11 @@ public class LocalDataService : IDataService
     public void Load<T>(string key, Action<T> callback)
     {
         var path = BuildPath(key);
-        
-        if (!File.Exists(path)) File.Create(path);
 
-        using (var stream = new StreamReader(path))
+        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.Write))
+        using (var streamReader = new StreamReader(stream))
         {
-            var json = stream.ReadToEnd();
+            var json = streamReader.ReadToEnd();
             var data = JsonUtility.FromJson<T>(json);
 
             callback?.Invoke(data);
@@ -27,9 +26,10 @@ public class LocalDataService : IDataService
         var path = BuildPath(key);
         var json = JsonUtility.ToJson(data);
 
-        using (var stream = new StreamWriter(path))
+        using (var stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+        using (var streamWriter = new StreamWriter(stream))
         {
-            stream.Write(json);
+            streamWriter.Write(json);
         }
 
         callback?.Invoke(true);

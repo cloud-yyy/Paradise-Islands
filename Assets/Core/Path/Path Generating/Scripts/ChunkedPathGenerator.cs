@@ -53,6 +53,8 @@ public class ChunkedPathGenerator : MonoBehaviour
         return new Chunk(newPathIndex, items);
     }
 
+    public int CalculatePathLengthByLevel(int level) => 35 + (level / 10) * 5;
+
     private int SwithPathIndex(int currentIndex, int maxIndex)
     {
         if (currentIndex == 0) return currentIndex + 1;
