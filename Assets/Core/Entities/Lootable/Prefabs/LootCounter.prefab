@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 3248519218400234752}
+  _lootableItemUI: {fileID: 1293106910300701041, guid: 2356b171bbe58eb47a5c859783081890,
+    type: 3}
+  _itemsUIPoolSize: 25
 --- !u!1 &5025913908618326132
 GameObject:
   m_ObjectHideFlags: 0

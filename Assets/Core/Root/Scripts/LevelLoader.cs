@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField] private ChunkedPathGenerator _generator;
     [SerializeField] private MainSpawner _spawner;
+    [SerializeField] private TextMeshProUGUI _levelHeader;
 
     private Chunk[] _path;
     public LevelInfo Info { get; private set; }
@@ -23,6 +25,7 @@ public class LevelLoader : MonoBehaviour
         for (int i = 0; i < _path.Length; i++)
             _path[i] = info.ChunkInfos[i].CreateChunk();
 
+        _levelHeader.text = $"Level {Info.LastLevelIndex}";
         _spawner.InitPath(_path);
     }
 

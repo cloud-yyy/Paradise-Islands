@@ -6,13 +6,12 @@ public class Lootable : Entity
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Character character))
+        if (other.TryGetComponent(out Barman barman))
         {
-            character.Loot();
+            barman.Loot();
             Destroy();
         }
     }
-
 
     public void Destroy()
     {

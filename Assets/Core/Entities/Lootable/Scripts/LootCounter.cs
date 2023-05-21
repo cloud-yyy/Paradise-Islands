@@ -6,6 +6,7 @@ using UnityEngine;
 public class LootCounter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private int _itemsUIPoolSize;
 
     public int Count { get; private set; }
 
@@ -17,6 +18,12 @@ public class LootCounter : MonoBehaviour
     public void Add()
     {
         Count++;
+        _text.text = Count.ToString();
+    }
+
+    public void Reset()
+    {
+        Count = 0;
         _text.text = Count.ToString();
     }
 }

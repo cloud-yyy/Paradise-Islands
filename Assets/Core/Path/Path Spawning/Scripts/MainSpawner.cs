@@ -30,18 +30,7 @@ public class MainSpawner : MonoBehaviour, IEntitiesMover
             var currentPosition = position + _preStartOffset * i;
             Spawn(currentPosition, false);
         }
-    }
-    private void OnEnable()
-    {
-        _character.OnStopped += Stop;
-    }
-
-    private void OnDisable()
-    {
-        _character.OnStopped -= Stop;
-    }
-
-    public void Run()
+    }public void Run()
     {
         _character.EnableMovement(true);
 

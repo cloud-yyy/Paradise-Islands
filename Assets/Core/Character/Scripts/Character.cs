@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private LootCounter _counter;
-    public event Action OnStopped;
-    public event Action OnFinished;
+    public event Action<int> OnFinished;
+    public event Action OnDestroyed;
 
-    private int _lootableCount = 0;
     private Slider _slider;
     private Jumper _jumper;
     private IInputHandler _inputHandler;
+    private Barman _barman;
 
     private void Start()
     {
@@ -24,17 +23,12 @@ public class Character : MonoBehaviour
 
         _slider = GetComponent<Slider>();
         _jumper = GetComponent<Jumper>();
+        _barman = GetComponent<Barman>();
 
         _slider.Init(_inputHandler);
         _jumper.Init(_inputHandler);
 
         EnableMovement(false);
-    }
-
-    public void Loot()
-    {
-        _counter.Add();
-        _lootableCount++;
     }
 
     public void EnableMovement(bool enabled)
@@ -46,15 +40,16 @@ public class Character : MonoBehaviour
     public void Destroy()
     {
         EnableMovement(false);
+        OnDestroyed?.Invoke();
 
-        OnStopped?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public void Finish()
     {
         EnableMovement(false);
 
-        OnStopped?.Invoke();
-        OnFinished?.Invoke();
+        var coins = _barman.GetAllLootable();
+        OnFinished?.Invoke(coins);
     }
 }
