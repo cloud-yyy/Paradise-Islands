@@ -7,12 +7,17 @@ public class CharacterMovement : MonoBehaviour
     private IInputHandler[] _inputHandlers;
     private Slider _slider;
     private Jumper _jumper;
+    private CharacterAnimator _animator;
 
     private void Start()
     {
         _inputHandlers = GetComponents<IInputHandler>();
+        _animator = GetComponent<CharacterAnimator>();
+
         _slider = GetComponent<Slider>();
         _jumper = GetComponent<Jumper>();
+        _jumper.InitAnimator(_animator);
+
         OnEnable();
     }
 

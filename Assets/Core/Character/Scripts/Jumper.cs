@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,11 @@ public class Jumper : MonoBehaviour
     private CharacterAnimator _animator;
     private bool _isJumping = false;
 
-    private void Start()
+    public void InitAnimator(CharacterAnimator animator)
     {
-        _animator = GetComponent<CharacterAnimator>();
+        _animator = animator;
     }
-    
+
     public void TryJump()
     {
         if (!_isJumping)
@@ -37,6 +38,7 @@ public class Jumper : MonoBehaviour
     private IEnumerator StartJumping()
     {
         _isJumping = true;
+        _animator.SetJumping();
 
         for (float t = 0; t < _jumpDuration; t += Time.deltaTime)
         {
@@ -45,6 +47,7 @@ public class Jumper : MonoBehaviour
         }
 
         _isJumping = false;
+        _animator.SetRunning();
     }
 
     private IEnumerator StartFalling()
@@ -58,6 +61,7 @@ public class Jumper : MonoBehaviour
             yield return null;
         }
 
-        _isJumping = false;
+        _isJumping = false; 
+        _animator.SetRunning();
     }
 }

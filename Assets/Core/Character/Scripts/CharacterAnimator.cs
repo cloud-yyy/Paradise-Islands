@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    private const string IdleTrigger = "";
-    private const string RunningTrigger = "";
-    private const string JumpingTrigger = "";
-    private const string DancingTrigger = "";
+    private const string IdleTrigger = "Idle";
+    private const string RunningTrigger = "Running";
+    private const string JumpingTrigger = "Jumping";
 
-    private Animator _animator;
-
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
+    [SerializeField] private Animator _animator;
 
     public void SetIdle()
     {
@@ -31,8 +25,8 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetTrigger(JumpingTrigger);
     }
 
-    public void SetDancing()
+    public void SetDie()
     {
-        _animator.SetTrigger(DancingTrigger);
+
     }
 }

@@ -11,13 +11,11 @@ public class Slider : MonoBehaviour
 
     private PositionSwither _swither;
     private Transform _target;
-    private CharacterAnimator _animator;
 
     private void Start()
     {
         _swither = new PositionSwither(_positions, 1);
         _target = _swither.CurrentPosition;
-        _animator = GetComponent<CharacterAnimator>();
     }
 
     private void FixedUpdate()
