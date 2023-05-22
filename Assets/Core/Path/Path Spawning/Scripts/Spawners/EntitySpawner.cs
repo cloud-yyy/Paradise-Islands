@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySpawner<T> : MonoBehaviour, IPoolSpawnable<T>, IEntitiesMover where T : Entity
+public class EntitySpawner<T> : MonoBehaviour, IEntitiesMover where T : Entity
 {
     [SerializeField] private int _poolSize;
     [SerializeField] private T[] _prefabs;

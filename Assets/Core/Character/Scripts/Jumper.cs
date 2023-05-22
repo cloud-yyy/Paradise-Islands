@@ -5,13 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(IInputHandler))]
 public class Jumper : MonoBehaviour
 {
-    [SerializeField] private float _jumpHeight = 3f;
+    [SerializeField] private float _jumpHeight = 2.7f;
     [SerializeField] private float _jumpDuration = 1.5f;
     [SerializeField] private float _fallDuration = 0.4f;
     [SerializeField] private AnimationCurve _jumpingCurve;
     [SerializeField] private AnimationCurve _fallingCurve;
 
-    private IInputHandler _inputHandler;
     private CharacterAnimator _animator;
     private bool _isJumping = false;
 
@@ -19,35 +18,14 @@ public class Jumper : MonoBehaviour
     {
         _animator = GetComponent<CharacterAnimator>();
     }
-
-    public void Init(IInputHandler handler)
-    {
-        _inputHandler = handler;
-        OnEnable();
-    }
-
-    private void OnEnable()
-    {
-        if (_inputHandler != null)
-        {
-            _inputHandler.OnSlideDown += TryFall;
-            _inputHandler.OnSlideUp += TryJump;
-        }
-    }
-
-    private void OnDisable()
-    {
-        _inputHandler.OnSlideUp -= TryJump;
-        _inputHandler.OnSlideDown -= TryFall;
-    }
-
-    private void TryJump()
+    
+    public void TryJump()
     {
         if (!_isJumping)
             StartCoroutine(StartJumping());
     }
 
-    private void TryFall()
+    public void TryFall()
     {
         if (_isJumping)
         {

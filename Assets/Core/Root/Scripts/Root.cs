@@ -72,9 +72,7 @@ public class Root : MonoBehaviour
     private void SaveData()
     {
         _playerInfo.LevelInfo = _levelLoader.Info;
-
         _dataService.Save(_playerInfo, Key);
-        Debug.Log("saved");
     }
 
     private void OnEnable()

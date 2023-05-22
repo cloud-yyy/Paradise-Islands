@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TouchInputHandler : MonoBehaviour, IInputHandler
 {
-    private const float _minSwipeMagnitude = 0.08f;
+    [SerializeField] private float _minSwipeMagnitude = 0.08f;
     private Vector3 _lastPosition;
 
     public event Action OnSlideUp;

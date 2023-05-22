@@ -8,34 +8,17 @@ public class Character : MonoBehaviour
     public event Action<int> OnFinished;
     public event Action OnDestroyed;
 
-    private Slider _slider;
-    private Jumper _jumper;
-    private IInputHandler _inputHandler;
+    private CharacterMovement _movement;
     private Barman _barman;
 
     private void Start()
     {
-#if UNITY_STANDALONE
-        _inputHandler = GetComponent<KeyboardInputHandler>();
-#else
-        _inputHandler = GetComponent<TouchInputHandler>();
-#endif
-
-        _slider = GetComponent<Slider>();
-        _jumper = GetComponent<Jumper>();
         _barman = GetComponent<Barman>();
-
-        _slider.Init(_inputHandler);
-        _jumper.Init(_inputHandler);
-
+        _movement = GetComponent<CharacterMovement>();
         EnableMovement(false);
     }
 
-    public void EnableMovement(bool enabled)
-    {
-        _slider.enabled = enabled;
-        _jumper.enabled = enabled;
-    }
+    public void EnableMovement(bool enabled) => _movement.enabled = enabled;
 
     public void Destroy()
     {

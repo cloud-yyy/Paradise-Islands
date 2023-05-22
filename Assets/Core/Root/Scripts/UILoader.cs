@@ -49,8 +49,6 @@ public class UILoader : MonoBehaviour
                 break;
             }
         }
-        Debug.Log(level);
-
         return Math.Round((float)value / Mathf.Pow(1000, level), 2).ToString() + numericLevelSymbols[level];
     }
 }
