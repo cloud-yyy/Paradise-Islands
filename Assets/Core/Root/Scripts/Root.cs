@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Root : MonoBehaviour
 {
@@ -10,14 +11,17 @@ public class Root : MonoBehaviour
     [SerializeField] private MainSpawner _spawner;
     [SerializeField] private LevelLoader _levelLoader;
     [SerializeField] private UILoader _UILoader;
-
-    [SerializeField] private TextMeshProUGUI _coinsText;
+    [SerializeField] private Wallet _wallet;
 
     private IDataService _dataService;
     private PlayerInfo _playerInfo;
-    private int _coins;
 
     private const string Key = "playerInfo";
+
+    private void Awake()
+    {
+        DOTween.Init(false, true, LogBehaviour.Default);
+    }
 
     private void Start()
     {
@@ -31,8 +35,7 @@ public class Root : MonoBehaviour
 
         _levelLoader.Load(_playerInfo.LevelInfo);
         
-        _coins = _playerInfo.TotalCoins;
-        _UILoader.LoadCoinsText(_coins);
+        _wallet.Count = _playerInfo.TotalCoins;
 
         SaveData();
     }
@@ -46,7 +49,11 @@ public class Root : MonoBehaviour
     {
         Time.timeScale = paused ? 0 : 1;
         _character.EnableMovement(!paused);
-        _UILoader.ShowPauseView();
+        
+        if (paused) 
+            _UILoader.ShowPauseView();
+        else 
+            _UILoader.ShowPauseView();
     }
 
     public void FinishGame(int coins)

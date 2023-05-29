@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class Barman : MonoBehaviour
     public int GetAllLootable()
     {
         var lootableCount = _counter.Count;
-        _counter.Reset();
+        _counter.AnimateToZero();
         return Mathf.RoundToInt(_coinsPerLootable * lootableCount);
     }
 }

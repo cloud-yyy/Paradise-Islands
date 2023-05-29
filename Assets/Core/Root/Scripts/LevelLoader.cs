@@ -25,7 +25,7 @@ public class LevelLoader : MonoBehaviour
         for (int i = 0; i < _path.Length; i++)
             _path[i] = info.ChunkInfos[i].CreateChunk();
 
-        _levelHeader.text = $"Level {Info.LastLevelIndex}";
+        _levelHeader.text = $"Уровень {Info.LastLevelIndex}";
         _spawner.InitPath(_path);
     }
 

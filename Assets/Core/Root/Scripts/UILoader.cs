@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class UILoader : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class UILoader : MonoBehaviour
     [SerializeField] private View _loseView;
     [SerializeField] private View _finishView;
 
-    [SerializeField] private TextMeshProUGUI _globalCoinsText;
     [SerializeField] private TextMeshProUGUI _finishCoinsText;
+    [SerializeField] private float _animationPulseIntensivity = 0.1f;
+    [SerializeField] private float _animationDuration = 2f;
 
-    public void LoadCoinsText(int value) => _globalCoinsText.text = GetShortedNumericString(value);
 
     public void ShowPauseView() => ShowView(_pauseView);
 
@@ -21,34 +22,28 @@ public class UILoader : MonoBehaviour
 
     public void ShowFinishView(int coinsCount)
     {
-        _finishCoinsText.text = "+" + GetShortedNumericString(coinsCount);
         ShowView(_finishView);
+        StartCoroutine(AnimateFinishView(coinsCount));
+    }
+
+    private IEnumerator AnimateFinishView(int count)
+    {
+        var duration = _animationDuration / count;
+        for (int i = 0; i <= count; i++)
+        {
+            var currentScale = transform.localScale;
+
+            transform.DOScale(currentScale * (1 - _animationPulseIntensivity), duration)
+                .SetLoops(2, LoopType.Yoyo)
+                .SetLink(_finishCoinsText.gameObject)
+                .OnKill(() => _finishCoinsText.text = "+" + i.ToString());
+
+            yield return new WaitForSeconds(duration * 2);
+        }
     }
 
     public void ShowView(View view)
     {
         view.Show();
-    }
-
-    private string GetShortedNumericString(int value)
-    {
-        var numericLevelSymbols = new Dictionary<int, string>()
-        {
-            { 0, "" },
-            { 1, "K" },
-            { 2, "M" },
-            { 3, "B" },
-        };
-
-        int level = 1;
-        for (level = 1; ; level++)
-        {
-            if (value / Mathf.Pow(1000, level) < 1)
-            {
-                --level;
-                break;
-            }
-        }
-        return Math.Round((float)value / Mathf.Pow(1000, level), 2).ToString() + numericLevelSymbols[level];
     }
 }
